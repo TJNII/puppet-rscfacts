@@ -9,7 +9,7 @@ class rscfacts {
     # when published
 
     # This is also a gem, but it currently has dependency issues:
-    # mime-types requires Ruby version >= 1.9.2.
+    # "mime-types requires Ruby version >= 1.9.2."
     package { "rubygem-rest-client":
       ensure   => installed,
       require => Yumrepo["epel"],

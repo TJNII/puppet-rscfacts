@@ -23,7 +23,8 @@
 # limitations under the License.
 # 
 
-if Facter.value('is_rsc') == "true"
+# is_rsc_rc was moved to rackspace_extra as it made the code significantly neater.
+if Facter.value('is_rsc') == "true" and Facter.value('is_rsc_rc') == "true"
   begin
     require 'rubygems'
     require 'json'
@@ -32,7 +33,7 @@ if Facter.value('is_rsc') == "true"
   rescue
     loadFailure = true
   end
-
+  
   # Avoiding nested exceptions
   if loadFailure == false
     # This is a somewhat janky way to populate the is_rsc_rc variable
@@ -43,20 +44,12 @@ if Facter.value('is_rsc') == "true"
       # http://www.rackspace.com/knowledge_center/article/the-rackconnect-api
       # Authentication is host based; no passwords or tokens are needed.
       rcStatus = JSON.parse(RestClient.get("https://#{Facter.rsc_region}.api.rackconnect.rackspace.com/v1/automation_status?format=JSON", {:accept => :json}))
-      is_rsc_rc = true
       Facter.add(:rsc_rc_status) do
         setcode do
           rcStatus['automation_status']
         end
       end
     rescue
-      is_rsc_rc = false
-    end
-    
-    Facter.add(:is_rsc_rc) do
-      setcode do
-        is_rsc_rc
-      end
     end
   end
 end

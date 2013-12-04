@@ -16,6 +16,9 @@ A 4th roles fact is also provided:
 
 This fact is not part of the rsc facts to be included in Facter 2.0.0.
 
+All the rsc facts require xe-guest-utilities-xenstore to be installed, it is installed by default on
+Rackspace cloud servers.  A helper installer class is not provided for xenstore at this time.
+
 RackConnect Facts
 -----------------
 

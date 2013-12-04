@@ -17,7 +17,7 @@
 #
 class rscfacts {
   # http://projects.puppetlabs.com/issues/3704
-  if $is_rsc == "true" {
+  if $is_rsc_rc == "true" {
     # Rackspace Cloud Server
     # Include Ruby dependencies to query the RackConnect API
     

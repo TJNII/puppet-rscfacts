@@ -12,7 +12,7 @@ These facts and the supporting file are from https://github.com/puppetlabs/facte
 and are to be included in Facter 2.0.0 per http://projects.puppetlabs.com/issues/20468.
 
 RackConnect Facts
-=================
+-----------------
 
 In addition, this module also provides two RackConnect facts:
 

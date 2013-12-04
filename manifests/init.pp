@@ -24,11 +24,23 @@ class rscfacts {
     # This will need to be moved to something like https://github.com/TJNII/puppet-commonpackages
     # when published
 
-    # This is also a gem, but it currently has dependency issues:
+    # This is also a gem, but it currently has dependency issues, at least on Cent:
     # "mime-types requires Ruby version >= 1.9.2."
-    package { "rubygem-rest-client":
-      ensure   => installed,
-      require => Yumrepo["epel"],
-    }
+    case $operatingsystem {
+      debian, ubuntu: {
+        package { 'librestclient-ruby':
+          ensure => installed,
+        }
+      }
+      centos, redhat: {
+        package { "rubygem-rest-client":
+          ensure   => installed,
+          require => Yumrepo["epel"],
+        }
+      }
+      default: {
+        fail("OS $operatingsystem not defined in rscfacts list")
+      }
+    }   
   }
 }

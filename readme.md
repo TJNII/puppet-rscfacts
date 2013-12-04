@@ -11,6 +11,11 @@ rackspace.rb provides the following facts:
 These facts and the supporting file are from https://github.com/puppetlabs/facter/pull/436/files
 and are to be included in Facter 2.0.0 per http://projects.puppetlabs.com/issues/20468.
 
+A 4th roles fact is also provided:
+* rsc_roles: Rackspace server roles
+
+This fact is not part of the rsc facts to be included in Facter 2.0.0.
+
 RackConnect Facts
 -----------------
 
@@ -21,3 +26,6 @@ In addition, this module also provides two RackConnect facts:
 
 The rsc_rc_status fact requires the Ruby rest-client module.
 The rscfacts class is provided to handle this dependency.
+
+Due to the rest-client dependency these facts may not be available until after the first Puppet run.
+On RedHat/CentOS this dependency requires the Epel repo.

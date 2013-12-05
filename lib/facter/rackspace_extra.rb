@@ -55,8 +55,6 @@ if Facter.value('is_rsc') == "true"
       end
     end
     
-    # If roles is Nil we're likely on a 1st gen server where these values are not populated
-    # Nesting this within raw_result != nil should be safe.
     if result.include?("rack_connect")
       Facter.add(:rsc_rc_status) do
         setcode do

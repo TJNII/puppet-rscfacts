@@ -79,11 +79,11 @@ if Facter.value('is_rsc') == "true"
 
     if result.include?("rax_managed")
       # This variable is double-quoted, need to strip quotes
-      sla_status = Facter::Util::Resolution.exec("/usr/bin/xenstore-read vm-data/user-metadata/rax_service_level_automation")
-      if rc_status != nil:
-          Facter.add(:rsc_sla_status) do
+      mc_status = Facter::Util::Resolution.exec("/usr/bin/xenstore-read vm-data/user-metadata/rax_service_level_automation")
+      if mc_status != nil:
+          Facter.add(:rsc_mc_status) do
           setcode do
-            sla_status.gsub(/"/, "")
+            mc_status.gsub(/"/, "")
           end
         end
       end

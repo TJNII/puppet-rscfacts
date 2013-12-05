@@ -77,6 +77,20 @@ if Facter.value('is_rsc') == "true"
 
     end # RackConnect
 
+    Facter.add(:is_rsc_mc) do
+      setcode do
+        # This is mostly matching the code from rackspace.rb
+        # I know Facter will treat everything as strings when passing them to manifests
+        # (http://projects.puppetlabs.com/issues/3704) but in this code both seem to work
+        # Using strings for consistency.
+        if result.include?("rax_managed")
+          "true"
+        else
+          "false"
+        end
+      end
+    end
+
     if result.include?("rax_managed")
       # This variable is double-quoted, need to strip quotes
       mc_status = Facter::Util::Resolution.exec("/usr/bin/xenstore-read vm-data/user-metadata/rax_service_level_automation")

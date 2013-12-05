@@ -28,27 +28,49 @@
 if Facter.value('is_rsc') == "true"
   require 'rubygems'
   require 'json'
-
-  result = JSON.parse(Facter::Util::Resolution.exec("/usr/bin/xenstore-read vm-data/provider_data/roles"))
   
-  Facter.add(:rsc_roles) do
-    setcode do
-      if result:
+  raw_result = Facter::Util::Resolution.exec("/usr/bin/xenstore-read vm-data/provider_data/roles")
+  if raw_result != nil:
+      result = JSON.parse(raw_result)
+    
+    if result:
+        Facter.add(:rsc_roles) do
+        setcode do
           result.join(",")
+        end
       end
     end
-  end
-
-  Facter.add(:is_rsc_rc) do
-    setcode do
-      # This is mostly matching the code from rackspace.rb
-      # I know Facter will treat everything as strings when passing them to manifests
-      # (http://projects.puppetlabs.com/issues/3704) but in this code both seem to work
-      # Using strings for consistency.
-      if result.include?("rack_connect")
-        "true"
-      else
-        "false"
+    
+    Facter.add(:is_rsc_rc) do
+      setcode do
+        # This is mostly matching the code from rackspace.rb
+        # I know Facter will treat everything as strings when passing them to manifests
+        # (http://projects.puppetlabs.com/issues/3704) but in this code both seem to work
+        # Using strings for consistency.
+        if result.include?("rack_connect")
+          "true"
+        else
+          "false"
+        end
+      end
+    end
+    
+    # If roles is Nil we're likely on a 1st gen server where these values are not populated
+    # Nesting this within raw_result != nil should be safe.
+    if result.include?("rack_connect")
+      Facter.add(:rsc_rc_status) do
+        setcode do
+          Facter::Util::Resolution.exec("/usr/bin/xenstore-read vm-data/user-metadata/rackconnect_automation_status")
+        end
+      end
+      
+      features = Facter::Util::Resolution.exec("/usr/bin/xenstore-ls vm-data/user-metadata")
+      if features != nil:
+          Facter.add(:rsc_rc_features) do
+          setcode do
+            features.scan( /rackconnect_automation_feature_([\S]+)\s+=\s+"+ENABLED"+/ ).join(",")
+          end
+        end
       end
     end
   end

@@ -73,7 +73,21 @@ if Facter.value('is_rsc') == "true"
             features.scan( /rackconnect_automation_feature_([\S]+)\s+=\s+"+ENABLED"+/ ).join(",")
           end
         end
+      end # Features
+
+    end # RackConnect
+
+    if result.include?("rax_managed")
+      # This variable is double-quoted, need to strip quotes
+      sla_status = Facter::Util::Resolution.exec("/usr/bin/xenstore-read vm-data/user-metadata/rax_service_level_automation")
+      if rc_status != nil:
+          Facter.add(:rsc_sla_status) do
+          setcode do
+            sla_status.gsub(/"/, "")
+          end
+        end
       end
-    end
-  end
-end
+    end # rax_managed
+
+  end # Roles
+end # RSC

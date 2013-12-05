@@ -33,3 +33,4 @@ In addition, this module also provides three RackConnect facts:
 * rsc_rc_features: Enabled RackConnect Features
 
 These facts are only available on Next Generation cloud servers.
+Furthermore, status and features are only populated on RackConnected servers.

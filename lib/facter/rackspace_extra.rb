@@ -56,9 +56,13 @@ if Facter.value('is_rsc') == "true"
     end
     
     if result.include?("rack_connect")
-      Facter.add(:rsc_rc_status) do
-        setcode do
-          Facter::Util::Resolution.exec("/usr/bin/xenstore-read vm-data/user-metadata/rackconnect_automation_status")
+      # This variable is double-quoted, need to strip quotes
+      rc_status = Facter::Util::Resolution.exec("/usr/bin/xenstore-read vm-data/user-metadata/rackconnect_automation_status")
+      if rc_status != nil:
+          Facter.add(:rsc_rc_status) do
+          setcode do
+            rc_status.gsub(/"/, "")
+          end
         end
       end
       

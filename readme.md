@@ -15,7 +15,7 @@ All the rsc facts require xe-guest-utilities-xenstore to be installed, it is ins
 Rackspace cloud servers.  These facts will not be populated if it is not present.
 
 Next Gen Only Facts
-===================
+-------------------
 
 A The following extra fact are also provided:
 * rsc_roles: Rackspace server roles
@@ -25,8 +25,7 @@ A The following extra fact are also provided:
 These facts are not part of the rsc facts to be included in Facter 2.0.0.
 They will only be populated on Next Generation cloud servers
 
-RackConnect Facts
------------------
+### RackConnect Facts
 
 In addition, this module also provides three RackConnect facts:
 
@@ -38,7 +37,7 @@ These facts are only available on Next Generation cloud servers.
 Furthermore, status and features are only populated on RackConnected servers.
 
 Avoiding Collisions with Rackspace Automation
-=============================================
+---------------------------------------------
 
 If you are a Managed Rackspace customer or a RackConnect customer, the following code can help avoid
 the potential race conditions with Rackspace Automation on build with Puppet preloaded in your image:

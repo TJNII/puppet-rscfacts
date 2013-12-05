@@ -17,11 +17,12 @@ Rackspace cloud servers.  These facts will not be populated if it is not present
 Next Gen Only Facts
 ===================
 
-A 4th roles fact is also provided:
+A The following extra fact are also provided:
 * rsc_roles: Rackspace server roles
+* rsc_sla_status: Rackspace Managed Cloud automation status.  (Only populated on Managed next-gen servers)
 
-This fact is not part of the rsc facts to be included in Facter 2.0.0.
-It will only be populated on Next Generation cloud servers
+These facts are not part of the rsc facts to be included in Facter 2.0.0.
+They will only be populated on Next Generation cloud servers
 
 RackConnect Facts
 -----------------

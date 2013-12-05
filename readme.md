@@ -19,7 +19,7 @@ Next Gen Only Facts
 
 A The following extra fact are also provided:
 * rsc_roles: Rackspace server roles
-* rsc_sla_status: Rackspace Managed Cloud automation status.  (Only populated on Managed next-gen servers)
+* rsc_mc_status: Rackspace Managed Cloud automation status.  (Only populated on Managed next-gen servers)
 
 These facts are not part of the rsc facts to be included in Facter 2.0.0.
 They will only be populated on Next Generation cloud servers
